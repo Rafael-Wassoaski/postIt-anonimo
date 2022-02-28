@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  font-family: "CommonPixel";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: "CommonPixel";
+}
+
+@font-face {
+  font-family: 'CommonPixel';
+  src: local('CommonPixel'),
+  url('./fonts/CommonPixel/COMMP___.TTF') format('truetype');
+  font-weight: bold;
+}
