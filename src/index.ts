@@ -3,13 +3,25 @@ import DBManager from './db/connection';
 import express from "express";
 
 const app = express();
-const Manager = new DBManager();
+const manager = new DBManager();
+DBManager.connect();
 
 app.get("/", async (req, res, next) => {
   res.send("Opa");
 });
 
-console.log(Manager.Manager);
+console.log(DBManager.Manager);
+DBManager.postIt.create({
+  from: 'string',
+    to: 'string',
+    text: 'string',
+    createdAt: 'string',
+    updatedAt: 'string'
+}).then(result=>{
+  console.log('ok')
+}).catch(err => {
+  console.log('err', err)
+})
 
 
 app.listen(8000, ()=>{

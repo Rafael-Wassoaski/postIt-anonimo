@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, {Connection, Model} from "mongoose";
+import PostIt from "../../interfaces/PostIt";
 const {Schema} = mongoose;
 
 const postIt = new Schema({
@@ -9,6 +10,12 @@ const postIt = new Schema({
     updatedAt: Date
 });
 
-export default function createSchema(): void{
-    mongoose.model('PostIt', postIt);
+export function createSchema(connection: Connection): Model<PostIt>{
+    console.log('aa' );
+
+    let a = connection.model('PostIt', postIt);
+    console.log('a', a);
+    return a;
+
 }
+

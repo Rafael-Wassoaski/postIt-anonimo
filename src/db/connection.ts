@@ -1,20 +1,20 @@
-import mongoose from "mongoose";
-import createSchema from "./schemas/PostIts";
-
+import mongoose, { Model } from "mongoose";
+import PostIt from "../interfaces/PostIt";
+import { createSchema } from "./schemas/PostIts";
 export default class DBManager {
   private static connection: mongoose.Connection;
+  private static postItModel: Model<PostIt>;
 
-  constructor(){
-      DBManager.connect().then(result =>{
-        console.log(`Estado da conexão com o banco ${DBManager.connection.readyState}`);
+  static async connect() {
+    await DBManager.createConnection();
+    console.log(
+      `Estado da conexão com o banco ${DBManager.connection.readyState}`
+    );
 
-        this.createModels();
-      });
-
+    await DBManager.createModels();
   }
 
-
-  private static async connect(): Promise<void> {
+  private static async createConnection(): Promise<void> {
     if (DBManager.connection) {
       return;
     }
@@ -22,14 +22,21 @@ export default class DBManager {
     DBManager.connection = await mongoose.createConnection(
       `mongodb://${process.env.DB_HOST}:27017/${process.env.DB_NAME}`
     );
-
   }
 
-  get Manager(): mongoose.Connection {
+  static get Manager(): mongoose.Connection {
     return DBManager.connection;
   }
 
-  private async createModels(){
-      createSchema();
+  static get postIt(): Model<PostIt> {
+    console.log('aqui', DBManager.postItModel);
+    return DBManager.postItModel;
+  }
+
+  private static async createModels() {
+    DBManager.postItModel = await createSchema(DBManager.connection);
+    console.log('ali', DBManager.postItModel);
+
+
   }
 }
