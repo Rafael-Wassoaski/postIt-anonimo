@@ -29,14 +29,10 @@ export default class DBManager {
   }
 
   static get postIt(): Model<PostIt> {
-    console.log('aqui', DBManager.postItModel);
     return DBManager.postItModel;
   }
 
   private static async createModels() {
     DBManager.postItModel = await createSchema(DBManager.connection);
-    console.log('ali', DBManager.postItModel);
-
-
   }
 }

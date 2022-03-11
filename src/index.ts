@@ -1,29 +1,18 @@
-require('dotenv').config();
-import DBManager from './db/connection';
+require("dotenv").config();
+import DBManager from "./db/DBManager";
 import express from "express";
+import bodyParser from "body-parser";
+import Routes from "./routes";
 
 const app = express();
-const manager = new DBManager();
-DBManager.connect();
 
-app.get("/", async (req, res, next) => {
-  res.send("Opa");
-});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-console.log(DBManager.Manager);
-DBManager.postIt.create({
-  from: 'string',
-    to: 'string',
-    text: 'string',
-    createdAt: 'string',
-    updatedAt: 'string'
-}).then(result=>{
-  console.log('ok')
-}).catch(err => {
-  console.log('err', err)
-})
+DBManager.connect().then(() => {
+  app.use("/api/v1", Routes);
 
-
-app.listen(8000, ()=>{
-    console.log('Aplicacao Post It anonimo iniciada');
+  app.listen(8000, () => {
+    console.log("Aplicacao Post It anonimo iniciada");
+  });
 });

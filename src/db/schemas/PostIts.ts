@@ -10,12 +10,7 @@ const postIt = new Schema({
     updatedAt: Date
 });
 
-export function createSchema(connection: Connection): Model<PostIt>{
-    console.log('aa' );
-
-    let a = connection.model('PostIt', postIt);
-    console.log('a', a);
-    return a;
-
+export async function createSchema(connection: Connection): Promise<Model<PostIt>>{
+    return await connection.model('PostIt', postIt);
 }
 
