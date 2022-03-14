@@ -1,6 +1,6 @@
 import mongoose, { Model } from "mongoose";
 import PostIt from "../interfaces/PostIt";
-import { createSchema } from "./schemas/PostIts";
+import { createSchema } from "../models/PostIt";
 export default class DBManager {
   private static connection: mongoose.Connection;
   private static postItModel: Model<PostIt>;

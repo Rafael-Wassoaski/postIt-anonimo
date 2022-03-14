@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { OK } from "http-status-codes";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const formLayout = {
   display: "block",
@@ -11,7 +13,11 @@ const formFieldsLayout = {
   padding: 10,
 };
 
-async function getPostsCount() {}
+async function getPostsCount() {
+  const response = await fetch("/api/v1/postit/next-number");
+
+  return await response.json();
+}
 
 function checkStringLength(text, limit = 1) {
   if (typeof text !== "string" || text.length > limit) {
@@ -21,16 +27,38 @@ function checkStringLength(text, limit = 1) {
   return true;
 }
 
+async function createPostIt(postIt) {
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(postIt),
+  };
+  const response = await fetch("/api/v1/postit", options);
+
+  if (response.status !== OK) {
+    const { error } = await response.json();
+
+    alert("Erro ao criar post: ", error);
+    return;
+  }
+  window.location = '/';
+}
+
 export default function NewPostItForm() {
-  const postItNext = getPostsCount();
   const [postIt, setPostIt] = useState({
     from: `Anônimo ${1}`,
     to: "Ninguém",
     text: "",
   });
 
+  useEffect(async () => {
+    const { next } = await getPostsCount();
+    console.log(next);
+    setPostIt({ ...postIt, from: `Anônimo ${next}` });
+  }, []);
+
   return (
-    <form style={formLayout} className="container" action="/api/v1/postIts/newPostIt" method="POST">
+    <form style={formLayout} className="container">
       <div className="mb-1">
         <label className="form-label">De:</label>
         <input
@@ -71,7 +99,16 @@ export default function NewPostItForm() {
         />
       </div>
 
-      <button type="submit" className="btn btn-primary">Enviar</button>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={async (event) => {
+          event.preventDefault();
+          await createPostIt(postIt);
+        }}
+      >
+        Enviar
+      </button>
     </form>
   );
 }
