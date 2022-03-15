@@ -30,7 +30,7 @@
         Conectar front-end com back-end via API
     </td>
     <td>
-       <img src="https://img.shields.io/badge/-N%C3%A3o%20implantado-red"/>
+       <img src="https://img.shields.io/badge/implantado-green"/>
     </td>
   </tr>
   
