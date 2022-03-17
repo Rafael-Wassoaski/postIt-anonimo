@@ -1,6 +1,6 @@
 <h1>Post-it anônimo</h1>
 
-<p> Aplicação criada com o intuido de praticar React no front end, e TypeScript com MongoDB no back-end</p>
+<p> Aplicação criada com o intuito de praticar React no front end, e TypeScript com MongoDB no back-end</p>
 <p> A aplicação serve para escrever post-its com um autor, um destinatário e um texto simples de até 125 caracteres. Os posts sempre são listados no mais recente 
   para o mais antigo. O autor pode manter-se anônimo</p>
   
@@ -30,7 +30,7 @@
         Conectar front-end com back-end via API
     </td>
     <td>
-       <img src="https://img.shields.io/badge/-N%C3%A3o%20implantado-red"/>
+       <img src="https://img.shields.io/badge/implantado-green"/>
     </td>
   </tr>
   
