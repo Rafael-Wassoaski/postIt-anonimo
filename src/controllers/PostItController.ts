@@ -31,7 +31,7 @@ export async function getPostIts(
   try {
     responseBody = await DBManager.postIt
       .find({})
-      .sort({ updatedAt: "desc" })
+      .sort({ updatedAt: "asc" })
       .lean();
   } catch (error) {
     responseBody = error;
