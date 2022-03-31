@@ -1,6 +1,8 @@
-import { OK } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+const { CREATED } = StatusCodes;
 
 const formLayout = {
   display: "block",
@@ -35,7 +37,7 @@ async function createPostIt(postIt) {
   };
   const response = await fetch("/api/v1/postit", options);
 
-  if (response.status !== OK) {
+  if (response.status !== CREATED) {
     const { error } = await response.json();
 
     alert("Erro ao criar post: ", error);
